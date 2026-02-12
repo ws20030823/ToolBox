@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("工具箱")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1d73a682dd90fe1f872e1601818d6542decc1e97")]
 [assembly: System.Reflection.AssemblyProductAttribute("工具箱")]
 [assembly: System.Reflection.AssemblyTitleAttribute("工具箱")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
