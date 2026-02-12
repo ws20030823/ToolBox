@@ -1,0 +1,15 @@
+# 忽略 Visual Studio 的临时文件
+.vs/
+.vscode/
+
+# 忽略编译生成的文件 (bin 和 obj 文件夹)
+[Bb]in/
+[Oo]bj/
+
+# 忽略用户个人配置
+*.user
+*.suo
+工具箱.csproj.user
+obj/Debug/net8.0-windows/工具箱.designer.deps.json
+obj/工具箱.csproj.nuget.dgspec.json
+工具箱.csproj.user
