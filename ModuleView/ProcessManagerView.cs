@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Management;
 
 namespace 工具箱.ModuleView
 {
@@ -63,9 +64,9 @@ namespace 工具箱.ModuleView
 
         private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dataGridView.Columns[e.ColumnIndex].Name == "操作"&&e.RowIndex>=0)
+            if (dataGridView.Columns[e.ColumnIndex].Name == "操作" && e.RowIndex >= 0)
             {
-                DialogResult isEnd =  MessageBox.Show("是否结束进程？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                DialogResult isEnd = MessageBox.Show("是否结束进程？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (isEnd == DialogResult.OK)
                 {
                     try
@@ -83,33 +84,65 @@ namespace 工具箱.ModuleView
                             return;
                         }
                         if (id == Process.GetCurrentProcess().Id)
-                        { 
+                        {
                             MessageBox.Show("不能结束当前进程！");
                             return;
                         }
-                        Process.GetProcessById(id).Kill();
+                        Process targetProcess = Process.GetProcessById(id);
+                        KillChildProcesses(targetProcess.Id);
+                        targetProcess.Kill();
+                        targetProcess.WaitForExit();
                         dataGridView.Rows.RemoveAt(e.RowIndex);
                         processList.RemoveAll(x => x.Id == id);
                         MessageBox.Show("进程已结束");
                     }
-                    catch(ArgumentException ex)
+                    catch (ArgumentException ex)
                     {
                         MessageBox.Show("未找到指定进程");
                     }
                 }
             }
         }
+        /// <summary>
+        /// 结束子进程
+        /// </summary>
+        /// <param name="id"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        private void KillChildProcesses(int id)
+        {
+            string query = $"select * from Win32_Process where ParentProcessId = {id}";
+            using (ManagementObjectSearcher managementObjectSearcher = new ManagementObjectSearcher(query))
+            {
+                foreach (ManagementObject childprocess in managementObjectSearcher.Get())
+                { 
+                    int childProcessId = (int)childprocess["ProcessId"];
+                    KillChildProcesses(childProcessId);
+                    try
+                    {
+                        Process currentProcess = Process.GetProcessById(childProcessId);
+                        currentProcess.Kill();
+                        currentProcess.WaitForExit();
+                    }
+                    catch
+                    (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+            } 
+        }
+
         private void txtBoxSearch_GotFocus(object sender, EventArgs e)
         {
             if (txtBoxSearch.Text == "输入进程名称搜索")
-            { 
+            {
                 txtBoxSearch.Text = "";
             }
         }
         private void txtBoxSearch_LostFocus(object sender, EventArgs e)
         {
             if (txtBoxSearch.Text == "")
-            { 
+            {
                 txtBoxSearch.Text = "输入进程名称搜索";
             }
         }
@@ -127,15 +160,23 @@ namespace 工具箱.ModuleView
             }
             else
             {
-                var filteredProcesses = processList.Where(x => x.Name.ToLower().Contains(searchText)).ToList() ;
+                var filteredProcesses = processList.Where(x => x.Name.ToLower().Contains(searchText)).ToList();
                 dataGridView.Rows.Clear();
                 foreach (var process in filteredProcesses)
-                { 
+                {
                     dataGridView.Rows.Add(process.Name, process.Id, process.MemoryUsage, process.StartTime, "结束进程");
                 }
             }
         }
 
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            dataGridView.Rows.Clear();
+            foreach (var process in processList)
+            { 
+                dataGridView.Rows.Add(process.Name, process.Id, process.MemoryUsage, process.StartTime, "结束进程");
+            }
+        }
     }
     public class ProcessInfo
     { 

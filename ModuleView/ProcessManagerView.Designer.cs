@@ -35,14 +35,14 @@
             启动时间 = new DataGridViewTextBoxColumn();
             操作 = new DataGridViewButtonColumn();
             panel1 = new Panel();
-            label3 = new Label();
-            label2 = new Label();
-            label1 = new Label();
             txtBoxSearch = new TextBox();
             labSearch = new Label();
             statusStrip1 = new StatusStrip();
             toolStripStatusLabel1 = new ToolStripStatusLabel();
             tsslProcessCount = new ToolStripStatusLabel();
+            btnReset = new Button();
+            button1 = new Button();
+            button2 = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             panel1.SuspendLayout();
             statusStrip1.SuspendLayout();
@@ -97,9 +97,9 @@
             // 
             // panel1
             // 
-            panel1.Controls.Add(label3);
-            panel1.Controls.Add(label2);
-            panel1.Controls.Add(label1);
+            panel1.Controls.Add(button2);
+            panel1.Controls.Add(button1);
+            panel1.Controls.Add(btnReset);
             panel1.Controls.Add(txtBoxSearch);
             panel1.Controls.Add(labSearch);
             panel1.Dock = DockStyle.Top;
@@ -108,36 +108,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(622, 54);
             panel1.TabIndex = 1;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(497, 18);
-            label3.Margin = new Padding(2, 0, 2, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(32, 17);
-            label3.TabIndex = 4;
-            label3.Text = "刷新";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(396, 18);
-            label2.Margin = new Padding(2, 0, 2, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(80, 17);
-            label2.TabIndex = 3;
-            label2.Text = "结束选中进程";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(302, 18);
-            label1.Margin = new Padding(2, 0, 2, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(80, 17);
-            label1.TabIndex = 2;
-            label1.Text = "查看进程详情";
             // 
             // txtBoxSearch
             // 
@@ -181,6 +151,34 @@
             tsslProcessCount.Size = new Size(15, 17);
             tsslProcessCount.Text = "1";
             // 
+            // btnReset
+            // 
+            btnReset.Location = new Point(528, 15);
+            btnReset.Name = "btnReset";
+            btnReset.Size = new Size(75, 23);
+            btnReset.TabIndex = 4;
+            btnReset.Text = "刷新";
+            btnReset.UseVisualStyleBackColor = true;
+            btnReset.Click += btnReset_Click;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(415, 15);
+            button1.Name = "button1";
+            button1.Size = new Size(107, 23);
+            button1.TabIndex = 5;
+            button1.Text = "结束选中进程";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(289, 15);
+            button2.Name = "button2";
+            button2.Size = new Size(120, 23);
+            button2.TabIndex = 6;
+            button2.Text = "查看进程详细信息";
+            button2.UseVisualStyleBackColor = true;
+            // 
             // ProcessManagerView
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
@@ -211,11 +209,11 @@
         private DataGridViewTextBoxColumn 启动时间;
         private DataGridViewButtonColumn 操作;
         private Label labSearch;
-        private Label label3;
-        private Label label2;
-        private Label label1;
         private TextBox txtBoxSearch;
         private ToolStripStatusLabel toolStripStatusLabel1;
         private ToolStripStatusLabel tsslProcessCount;
+        private Button button2;
+        private Button button1;
+        private Button btnReset;
     }
 }

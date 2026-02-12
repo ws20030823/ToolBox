@@ -29,9 +29,12 @@
         private void InitializeComponent()
         {
             TreeNode treeNode1 = new TreeNode("进程管理");
-            TreeNode treeNode2 = new TreeNode("工作", new TreeNode[] { treeNode1 });
+            TreeNode treeNode7 = new TreeNode("提取日报内容"); // 新增节点
+            TreeNode treeNode2 = new TreeNode("工作", new TreeNode[] { treeNode1, treeNode7 }); // 把新节点加入“工作”的子节点数组
             TreeNode treeNode3 = new TreeNode("Null");
             TreeNode treeNode4 = new TreeNode("日常", new TreeNode[] { treeNode3 });
+            TreeNode treeNode5 = new TreeNode("点云转换");
+            TreeNode treeNode6 = new TreeNode("数据处理", new TreeNode[] { treeNode5 });
             treeView1 = new TreeView();
             panel2 = new Panel();
             SuspendLayout();
@@ -50,7 +53,11 @@
             treeNode3.Text = "Null";
             treeNode4.Name = "日常";
             treeNode4.Text = "日常";
-            treeView1.Nodes.AddRange(new TreeNode[] { treeNode2, treeNode4 });
+            treeNode5.Name = "点云转换";
+            treeNode5.Text = "点云转换";
+            treeNode6.Name = "数据处理";
+            treeNode6.Text = "数据处理";
+            treeView1.Nodes.AddRange(new TreeNode[] { treeNode2, treeNode4, treeNode6 });
             treeView1.Size = new Size(121, 498);
             treeView1.TabIndex = 0;
             treeView1.AfterSelect += treeView1_AfterSelect;
@@ -73,7 +80,7 @@
             Controls.Add(treeView1);
             Margin = new Padding(2, 3, 2, 3);
             Name = "Form1";
-            Text = "v";
+            Text = "工具箱";
             ResumeLayout(false);
         }
 
